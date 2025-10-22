@@ -1,6 +1,6 @@
 using System.Reflection;
 using System.Text.Json;
-using TwitchPlayersNames.Models;
+using TwitchPlayers.Models;
 using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.DI;
 using SPTarkov.Server.Core.Helpers;
@@ -15,7 +15,7 @@ public record ModMetadata : AbstractModMetadata
     public override string ModGuid { get; init; } = "com.harmonyzt.twitchplayers";
     public override string Name { get; init; } = "Twitch Players";
     public override string Author { get; init; } = "harmony";
-    public override List<string>? Contributors { get; init; };
+    public override List<string>? Contributors { get; init; }
     public override SemanticVersioning.Version Version { get; init; } = new("3.0.0");
     public override SemanticVersioning.Range SptVersion { get; init; } = new("~4.0.0");
     public override List<string>? Incompatibilities { get; init; }
@@ -26,46 +26,35 @@ public record ModMetadata : AbstractModMetadata
 }
 
 [Injectable(TypePriority = OnLoadOrder.PostDBModLoader + 1)]
-public class TwitchPlayers : IOnLoad
+public class InitTwitchPlayers(ISptLogger<InitTwitchPlayers> logger, ModHelper modHelper)
+    : IOnLoad
 {
-    private readonly ISptLogger<TwitchPlayers> _logger;
-    private readonly DatabaseService _databaseService;
-    private readonly ModHelper _modHelper;
-    private readonly string _modPath;
-    private readonly string _tempPath;
-    private readonly string _botCallsignsPath
-
-    public TwitchPlayers(ISptLogger<TwitchPlayers> logger, DatabaseService databaseService, ModHelper modHelper)
-    {
-        _logger = logger;
-        _databaseService = databaseService;
-        _modHelper = modHelper;
-
-        _modPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-        _tempPath = Path.Combine(_modPath, "Temp/");
-        
-        // BotCallsigns Mod
-        _botCallsignsPath = Path.Combine(_modPath, "../../user/mods/BotCallsigns");
-    }
-
     public Task OnLoad()
     {
-        FlagChecker();
+        // Main path to the mod
+        var modPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        if (Directory.Exists(modPath))
+        {
+            FlagChecker(modPath);
+        }
+
         return Task.CompletedTask;
     }
 
-    private void FlagChecker()
+    private void FlagChecker(string modPath)
     {
-        if (!Directory.Exists(_botCallsignsPath))
+        var botCallsignsPath = Path.Combine(modPath, "..", "BotCallsigns");
+        var tempPath = Path.Combine(modPath, "Temp");
+        
+        if (!Directory.Exists(botCallsignsPath))
         {
-            _logger.LogError(
-                "[Twitch Players Validator] 'BotCallsigns' folder is missing/was renamed. Make sure you have installed this mod's dependencies. MOD WILL NOT WORK.");
+            logger.Warning("[Twitch Players Validator] 'BotCallsigns' folder is missing/was renamed. Make sure you have installed this mod's dependencies. MOD WILL NOT WORK.");
             return;
         }
 
-        _logger.LogInformation("[Twitch Players Validator] Waiting for flag...");
+        logger.Success("[Twitch Players Validator] Waiting for flag...");
 
-        var namesReadyPath = Path.Combine(_tempPath, "mod.ready");
+        var namesReadyPath = Path.Combine(tempPath, "mod.ready");
 
         // Check if it already exists and delete
         if (File.Exists(namesReadyPath))
@@ -73,58 +62,58 @@ public class TwitchPlayers : IOnLoad
             File.Delete(namesReadyPath);
         }
 
-        // Start monitoring for flag file
-        var fileWatcher = new FileSystemWatcher(_tempPath, "mod.ready")
+        // Start monitoring
+        var fileWatcher = new FileSystemWatcher(tempPath, "mod.ready")
         {
             NotifyFilter = NotifyFilters.FileName | NotifyFilters.CreationTime
         };
 
         fileWatcher.Created += (sender, e) =>
         {
-            _logger.LogInformation("[Twitch Players Validator] Detected flag file from BotCallsigns mod");
+            logger.Info("[Twitch Players Validator] Detected flag file from BotCallsigns mod");
             File.Delete(e.FullPath);
-            HandleFlagFound();
+            HandleFlagFound(modPath, botCallsignsPath);
             fileWatcher.Dispose();
         };
 
         fileWatcher.EnableRaisingEvents = true;
     }
 
-    private void HandleFlagFound()
+    private void HandleFlagFound(string modPath, string botCallsignsPath)
     {
-        _logger.LogInformation("[Twitch Players Validator] Handling flag found - processing names");
+        logger.Info("[Twitch Players Validator] Handling flag found - processing names");
 
-        LoadAllNames();
-        ApplyChangesToSAIN();
+        LoadAllNames(modPath, botCallsignsPath);
+        ApplyChangesToSain(modPath);
     }
     
-     private void LoadAllNames()
+    private void LoadAllNames(string modPath, string botCallsignsPath)
     {
         try
         {
-            var allNamesPath = Path.Combine(_botCallsignsPath, "nameData", "allNames.json");
+            var allNamesPath = Path.Combine(botCallsignsPath, "nameData", "allNames.json");
             
             if (!File.Exists(allNamesPath))
             {
-                _logger.LogError($"[Twitch Players] Could not find allNames.json at {allNamesPath}");
+                logger.Error($"[Twitch Players] Could not find allNames.json at {allNamesPath}");
                 return;
             }
 
             var jsonData = File.ReadAllText(allNamesPath);
-            var botNameData = JsonSerializer.Deserialize<BotNameData>(jsonData);
+            var botNameData = JsonSerializer.Deserialize<BotCallsignsNames>(jsonData);
 
             if (botNameData?.Names != null)
             {
-                UpdateTTVFile(botNameData);
+                UpdateTtvFile(botNameData, modPath);
             }
         }
         catch (Exception ex)
         {
-            _logger.LogError($"[Twitch Players] Error loading names: {ex.Message}");
+            logger.Error($"[Twitch Players] Error loading names: {ex.Message}");
         }
     }
 
-    private void UpdateTTVFile(BotNameData botNameData)
+    private void UpdateTtvFile(BotCallsignsNames botNameData, string modPath)
     {
         try
         {
@@ -135,133 +124,108 @@ public class TwitchPlayers : IOnLoad
                     System.Text.RegularExpressions.RegexOptions.IgnoreCase))
                 .ToList();
 
-            var updatedTTVNames = new Dictionary<string, string>();
+            var updatedTtvNames = new Dictionary<string, string>();
             
             foreach (var name in ttvNames)
             {
-                updatedTTVNames[name] = GetRandomPersonalityWithWeighting();
+                updatedTtvNames[name] = GetRandomPersonalityWithWeighting();
             }
 
-            var ttvNamesPath = Path.Combine(_modPath, "Names", "ttv_names.json");
-            var ttvData = new { generatedTwitchNames = updatedTTVNames };
+            // Ensure Names directory exists
+            var namesDir = Path.Combine(modPath, "Names");
+            if (!Directory.Exists(namesDir))
+            {
+                Directory.CreateDirectory(namesDir);
+            }
+
+            var ttvNamesPath = Path.Combine(namesDir, "ttv_names.json");
+            var ttvData = new { generatedTwitchNames = updatedTtvNames };
 
             var jsonOptions = new JsonSerializerOptions { WriteIndented = true };
             File.WriteAllText(ttvNamesPath, JsonSerializer.Serialize(ttvData, jsonOptions));
 
-            _logger.LogInformation("[Twitch Players] Updated our main file ttv_names.json");
+            logger.Info($"[Twitch Players] Updated our main file ttv_names.json with {updatedTtvNames.Count} names");
         }
         catch (Exception ex)
         {
-            _logger.LogError($"[Twitch Players] Error updating TTV file: {ex.Message}");
+            logger.Error($"[Twitch Players] Error updating TTV file: {ex.Message}");
         }
     }
 
-    private string GetRandomPersonalityWithWeighting()
+    private static string GetRandomPersonalityWithWeighting()
     {
-        // Random personality selection (very basic for now)
-        var personalities = new[] { "Wreckless", "Gigachad" };
-        var random = new Random();
+        // Random personality selection
+        var personalities = new[] { "Wreckless", "Gigachad", "Chad", "Normal" };
+        var weights = new[] { 0.3, 0.4, 0.2, 0.1 }; // Probabilities
         
-        return personalities[random.Next(personalities.Length)];
+        var random = new Random();
+        var randomValue = random.NextDouble();
+        double cumulative = 0.0;
+        
+        for (int i = 0; i < weights.Length; i++)
+        {
+            cumulative += weights[i];
+            if (randomValue < cumulative)
+            {
+                return personalities[i];
+            }
+        }
+        
+        return personalities[0]; // fallback
     }
 
-    private void ApplyChangesToSAIN()
+    private void ApplyChangesToSain(string modPath)
     {
         try
         {
-            var sainPersonalitiesPath = Path.Combine(_modPath, "../../BepInEx/plugins/SAIN/Personalities/NicknamePersonalities.json");
-            
-            if (!File.Exists(sainPersonalitiesPath))
+
+            string sainPersonalitiesPath = Path.Combine(modPath,
+                "../../../BepInEx/plugins/SAIN/Personalities/NicknamePersonalities.json");
+
+            if (sainPersonalitiesPath == null)
             {
-                _logger.LogWarning("[Twitch Players] Couldn't find SAIN's personalities file. If you have just updated SAIN to the latest, launch the game client at least once for this mod to work.");
+                logger.Warning($"[Twitch Players] Couldn't find SAIN's personalities file at {sainPersonalitiesPath}. If you have just updated SAIN to the latest, launch the game client at least once for this mod to work.");
                 return;
             }
 
-            _logger.LogInformation("[Twitch Players] SAIN personalities file detected!");
+            logger.Info($"[Twitch Players] SAIN personalities file detected at: {sainPersonalitiesPath}");
 
-            var sainJson = File.ReadAllText(sainPersonalitiesPath);
-            var sainData = JsonSerializer.Deserialize<SAINPersonalityData>(sainJson);
-
-            var ttvNamesPath = Path.Combine(_modPath, "names", "ttv_names.json");
+            var ttvNamesPath = Path.Combine(modPath, "Names", "ttv_names.json");
+            if (!File.Exists(ttvNamesPath))
+            {
+                logger.Error($"[Twitch Players] TTV names file not found at {ttvNamesPath}");
+                return;
+            }
 
             var ttvJson = File.ReadAllText(ttvNamesPath);
-            var ttvData = JsonSerializer.Deserialize<TTVNamesData>(ttvJson);
+            var ttvData = JsonSerializer.Deserialize<TtvNamesData>(ttvJson);
 
-            Dictionary<string, string> combinedNames = new();
-
-            if (ttvData?.GeneratedTwitchNames != null)
+            if (ttvData?.GeneratedTwitchNames == null || ttvData.GeneratedTwitchNames.Count == 0)
             {
-                foreach (var kvp in ttvData.GeneratedTwitchNames)
-                {
-                    combinedNames[kvp.Key] = kvp.Value;
-                }
+                logger.Warning("[Twitch Players] No TTV names found to apply to SAIN");
+                return;
             }
 
-            if (sainData != null)
+            // Read existing SAIN data
+            var sainJson = File.ReadAllText(sainPersonalitiesPath);
+            var sainData = JsonSerializer.Deserialize<SainPersonalityData>(sainJson);
+
+            if (sainData == null) return;
+
+            foreach (var kvp in ttvData.GeneratedTwitchNames)
             {
-                sainData.NicknamePersonalityMatches = combinedNames;
-                
-                var jsonOptions = new JsonSerializerOptions { WriteIndented = true };
-                File.WriteAllText(sainPersonalitiesPath, JsonSerializer.Serialize(sainData, jsonOptions));
-                
-                _logger.LogInformation("[Twitch Players] Personalities data was written to SAIN file successfully!");
+                // Here assign personalities
+                // sainData.NicknamePersonalityMatches[kvp.Key] = kvp.Value;
             }
+
+            var jsonOptions = new JsonSerializerOptions { WriteIndented = true };
+            File.WriteAllText(sainPersonalitiesPath, JsonSerializer.Serialize(sainData, jsonOptions));
+                
+            logger.Info($"[Twitch Players] Successfully applied {ttvData.GeneratedTwitchNames.Count} personalities to SAIN!");
         }
         catch (Exception ex)
         {
-            _logger.LogError($"[Twitch Players] Error applying changes to SAIN: {ex.Message}");
+            logger.Error($"[Twitch Players] Error applying changes to SAIN: {ex.Message}");
         }
     }
-
-    private void CopyDirectory(string sourceDir, string destinationDir, bool recursive)
-    {
-        var dir = new DirectoryInfo(sourceDir);
-
-        if (!dir.Exists)
-            throw new DirectoryNotFoundException($"Source directory not found: {dir.FullName}");
-
-        DirectoryInfo[] dirs = dir.GetDirectories();
-
-        Directory.CreateDirectory(destinationDir);
-
-        foreach (FileInfo file in dir.GetFiles())
-        {
-            string targetFilePath = Path.Combine(destinationDir, file.Name);
-            file.CopyTo(targetFilePath, true);
-        }
-
-        if (recursive)
-        {
-            foreach (DirectoryInfo subDir in dirs)
-            {
-                string newDestinationDir = Path.Combine(destinationDir, subDir.Name);
-                CopyDirectory(subDir.FullName, newDestinationDir, true);
-            }
-        }
-    }
-  
-public record BotNameData
-{
-    public List<string> Names { get; set; } = new();
-}
-
-public record PresetInfo
-{
-    public DateTime DateCreated { get; set; }
-}
-
-public record SAINPersonalityData
-{
-    public Dictionary<string, string> NicknamePersonalityMatches { get; set; } = new();
-}
-
-public record TTVNamesData
-{
-    public Dictionary<string, string> GeneratedTwitchNames { get; set; } = new();
-}
-
-public record YourNamesData
-{
-    public Dictionary<string, string> CustomNames { get; set; } = new();
-}
 }
