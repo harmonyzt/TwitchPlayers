@@ -1,6 +1,6 @@
 {
-  "Name": "Kaban Guard Close 2",
-  "WildSpawnType": "followerBoarClose2",
+  "Name": "Kollantay Security",
+  "WildSpawnType": "followerKolontaySecurity",
   "DifficultyModifier": 0.55,
   "Settings": {
     "easy": {
@@ -26,7 +26,7 @@
       "Aiming": {
         "AimCenterMass": false,
         "AimForHead": true,
-        "AimForHeadChance": 15.0,
+        "AimForHeadChance": 66.0,
         "DistanceAimTimeMultiplier": 1.0,
         "AngleAimTimeMultiplier": 1.0,
         "FasterCQBReactions": false,
@@ -102,7 +102,7 @@
         "BurstMulti": 3.0,
         "FireratMulti": 3.0,
         "MaxPointFireDistance": 150.0,
-        "AUTOMATIC_FIRE_SCATTERING_COEF": 1.5
+        "AUTOMATIC_FIRE_SCATTERING_COEF": 1.1
       }
     },
     "normal": {
@@ -128,7 +128,7 @@
       "Aiming": {
         "AimCenterMass": false,
         "AimForHead": true,
-        "AimForHeadChance": 15.0,
+        "AimForHeadChance": 66.0,
         "DistanceAimTimeMultiplier": 1.0,
         "AngleAimTimeMultiplier": 1.0,
         "FasterCQBReactions": true,
@@ -204,7 +204,7 @@
         "BurstMulti": 3.0,
         "FireratMulti": 3.0,
         "MaxPointFireDistance": 150.0,
-        "AUTOMATIC_FIRE_SCATTERING_COEF": 1.5
+        "AUTOMATIC_FIRE_SCATTERING_COEF": 1.1
       }
     },
     "hard": {
@@ -230,7 +230,7 @@
       "Aiming": {
         "AimCenterMass": false,
         "AimForHead": true,
-        "AimForHeadChance": 15.0,
+        "AimForHeadChance": 66.0,
         "DistanceAimTimeMultiplier": 1.0,
         "AngleAimTimeMultiplier": 1.0,
         "FasterCQBReactions": true,
@@ -306,7 +306,7 @@
         "BurstMulti": 3.0,
         "FireratMulti": 3.0,
         "MaxPointFireDistance": 150.0,
-        "AUTOMATIC_FIRE_SCATTERING_COEF": 1.5
+        "AUTOMATIC_FIRE_SCATTERING_COEF": 1.1
       }
     },
     "impossible": {
@@ -332,7 +332,7 @@
       "Aiming": {
         "AimCenterMass": false,
         "AimForHead": true,
-        "AimForHeadChance": 15.0,
+        "AimForHeadChance": 66.0,
         "DistanceAimTimeMultiplier": 1.0,
         "AngleAimTimeMultiplier": 1.0,
         "FasterCQBReactions": true,
@@ -408,7 +408,7 @@
         "BurstMulti": 3.0,
         "FireratMulti": 3.0,
         "MaxPointFireDistance": 150.0,
-        "AUTOMATIC_FIRE_SCATTERING_COEF": 1.5
+        "AUTOMATIC_FIRE_SCATTERING_COEF": 1.1
       }
     }
   }

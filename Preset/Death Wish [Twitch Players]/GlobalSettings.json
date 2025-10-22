@@ -78,13 +78,6 @@
       "DebugFlash": false,
       "SillyMode": false
     },
-    "LootingBots": {
-      "ExtractFromLoot": true,
-      "MinLootValPMC": 500000.0,
-      "MinLootValSCAV": 200000.0,
-      "MinLootValOther": 350000.0,
-      "MinLootValException": 1500000.0
-    },
     "Jokes": {
       "RandomCheaters": false,
       "RandomCheaterChance": 1.0

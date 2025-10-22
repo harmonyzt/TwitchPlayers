@@ -25,8 +25,8 @@
       },
       "Aiming": {
         "AimCenterMass": false,
-        "AimForHead": false,
-        "AimForHeadChance": 1.0,
+        "AimForHead": true,
+        "AimForHeadChance": 66.0,
         "DistanceAimTimeMultiplier": 1.0,
         "AngleAimTimeMultiplier": 1.0,
         "FasterCQBReactions": false,
@@ -127,8 +127,8 @@
       },
       "Aiming": {
         "AimCenterMass": false,
-        "AimForHead": false,
-        "AimForHeadChance": 1.0,
+        "AimForHead": true,
+        "AimForHeadChance": 66.0,
         "DistanceAimTimeMultiplier": 1.0,
         "AngleAimTimeMultiplier": 1.0,
         "FasterCQBReactions": false,
@@ -229,8 +229,8 @@
       },
       "Aiming": {
         "AimCenterMass": false,
-        "AimForHead": false,
-        "AimForHeadChance": 1.0,
+        "AimForHead": true,
+        "AimForHeadChance": 66.0,
         "DistanceAimTimeMultiplier": 1.0,
         "AngleAimTimeMultiplier": 1.0,
         "FasterCQBReactions": false,
@@ -332,13 +332,13 @@
       "Aiming": {
         "AimCenterMass": false,
         "AimForHead": true,
-        "AimForHeadChance": 1.0,
+        "AimForHeadChance": 66.0,
         "DistanceAimTimeMultiplier": 1.0,
         "AngleAimTimeMultiplier": 1.0,
         "FasterCQBReactions": false,
         "FasterCQBReactionsDistance": 30.0,
         "FasterCQBReactionsMinimum": 0.33,
-        "MAX_AIMING_UPGRADE_BY_TIME": 0.4,
+        "MAX_AIMING_UPGRADE_BY_TIME": 0.85,
         "DIST_TO_SHOOT_NO_OFFSET": 3.0,
         "COEF_IF_MOVE": 1.5,
         "MAX_AIM_TIME": 1.5,
@@ -360,7 +360,7 @@
         "ThrowGrenadeFrequency_MAX": 10.0,
         "MinFriendlyDistance": 8.0,
         "MinEnemyDistance": 8.0,
-        "GrenadePrecision": 0.01
+        "GrenadePrecision": 0.2
       },
       "Hearing": {},
       "Lay": {},
