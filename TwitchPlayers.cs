@@ -6,7 +6,6 @@ using SPTarkov.Server.Core.DI;
 using SPTarkov.Server.Core.Helpers;
 using SPTarkov.Server.Core.Models.Spt.Mod;
 using SPTarkov.Server.Core.Models.Utils;
-using SPTarkov.Server.Core.Services;
 
 namespace TwitchPlayers;
 
@@ -32,7 +31,8 @@ public class InitTwitchPlayers(ISptLogger<InitTwitchPlayers> logger, ModHelper m
     public Task OnLoad()
     {
         // Main path to the mod
-        var modPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        var modPath = modHelper.GetAbsolutePathToModFolder(Assembly.GetExecutingAssembly());
+        
         if (Directory.Exists(modPath))
         {
             FlagChecker(modPath);
@@ -43,8 +43,12 @@ public class InitTwitchPlayers(ISptLogger<InitTwitchPlayers> logger, ModHelper m
 
     private void FlagChecker(string modPath)
     {
-        var botCallsignsPath = Path.Combine(modPath, "..", "BotCallsigns");
-        var tempPath = Path.Combine(modPath, "Temp");
+
+        var pathToModsFolder = Directory.GetParent(modPath)?.FullName;
+        
+        var botCallsignsPath = Path.Combine(pathToModsFolder, "BotCallsigns");
+        
+        //var tempPath = Path.Combine(modPath, "Temp");
         
         if (!Directory.Exists(botCallsignsPath))
         {
@@ -54,34 +58,26 @@ public class InitTwitchPlayers(ISptLogger<InitTwitchPlayers> logger, ModHelper m
 
         logger.Success("[Twitch Players Validator] Waiting for flag...");
 
-        var namesReadyPath = Path.Combine(tempPath, "mod.ready");
+        //var namesReadyPath = Path.Combine(tempPath, "mod.ready");
 
         // Check if it already exists and delete
-        if (File.Exists(namesReadyPath))
-        {
-            File.Delete(namesReadyPath);
-        }
+        //if (File.Exists(namesReadyPath))
+        //{
+        //    File.Delete(namesReadyPath);
+        //}
 
         // Start monitoring
-        var fileWatcher = new FileSystemWatcher(tempPath, "mod.ready")
-        {
-            NotifyFilter = NotifyFilters.FileName | NotifyFilters.CreationTime
-        };
-
-        fileWatcher.Created += (sender, e) =>
-        {
-            logger.Info("[Twitch Players Validator] Detected flag file from BotCallsigns mod");
-            File.Delete(e.FullPath);
-            HandleFlagFound(modPath, botCallsignsPath);
-            fileWatcher.Dispose();
-        };
-
-        fileWatcher.EnableRaisingEvents = true;
+        //var fileWatcher = new FileSystemWatcher(tempPath, "mod.ready")
+        //{
+        //    NotifyFilter = NotifyFilters.FileName | NotifyFilters.CreationTime
+        //};
+        
+        HandleFlagFound(modPath, botCallsignsPath);
     }
 
     private void HandleFlagFound(string modPath, string botCallsignsPath)
     {
-        logger.Info("[Twitch Players Validator] Handling flag found - processing names");
+        logger.Info("[Twitch Players Validator] Processing names..");
 
         LoadAllNames(modPath, botCallsignsPath);
         ApplyChangesToSain(modPath);
@@ -124,20 +120,15 @@ public class InitTwitchPlayers(ISptLogger<InitTwitchPlayers> logger, ModHelper m
                     System.Text.RegularExpressions.RegexOptions.IgnoreCase))
                 .ToList();
 
-            var updatedTtvNames = new Dictionary<string, string>();
+            var updatedTtvNames = new Dictionary<string, int>();
             
             foreach (var name in ttvNames)
             {
-                updatedTtvNames[name] = GetRandomPersonalityWithWeighting();
+                updatedTtvNames[name] = GetRandomPersonalityIdWithWeighting();
             }
 
-            // Ensure Names directory exists
+            // No need to check for Names directory, it always exists for us
             var namesDir = Path.Combine(modPath, "Names");
-            if (!Directory.Exists(namesDir))
-            {
-                Directory.CreateDirectory(namesDir);
-            }
-
             var ttvNamesPath = Path.Combine(namesDir, "ttv_names.json");
             var ttvData = new { generatedTwitchNames = updatedTtvNames };
 
@@ -145,48 +136,25 @@ public class InitTwitchPlayers(ISptLogger<InitTwitchPlayers> logger, ModHelper m
             File.WriteAllText(ttvNamesPath, JsonSerializer.Serialize(ttvData, jsonOptions));
 
             logger.Info($"[Twitch Players] Updated our main file ttv_names.json with {updatedTtvNames.Count} names");
+
+
+            ApplyChangesToSain(modPath);
         }
         catch (Exception ex)
         {
             logger.Error($"[Twitch Players] Error updating TTV file: {ex.Message}");
         }
     }
-
-    private static string GetRandomPersonalityWithWeighting()
-    {
-        // Random personality selection
-        var personalities = new[] { "Wreckless", "Gigachad", "Chad", "Normal" };
-        var weights = new[] { 0.3, 0.4, 0.2, 0.1 }; // Probabilities
-        
-        var random = new Random();
-        var randomValue = random.NextDouble();
-        double cumulative = 0.0;
-        
-        for (int i = 0; i < weights.Length; i++)
-        {
-            cumulative += weights[i];
-            if (randomValue < cumulative)
-            {
-                return personalities[i];
-            }
-        }
-        
-        return personalities[0]; // fallback
-    }
-
+    
     private void ApplyChangesToSain(string modPath)
     {
         try
         {
 
-            string sainPersonalitiesPath = Path.Combine(modPath,
-                "../../../BepInEx/plugins/SAIN/Personalities/NicknamePersonalities.json");
-
-            if (sainPersonalitiesPath == null)
-            {
-                logger.Warning($"[Twitch Players] Couldn't find SAIN's personalities file at {sainPersonalitiesPath}. If you have just updated SAIN to the latest, launch the game client at least once for this mod to work.");
-                return;
-            }
+            // Find Nickname Personalities.json
+            string baseGamePath = Path.GetFullPath(Path.Combine(modPath, @"..\..\..\.."));
+            string sainPersonalitiesPath = Path.Combine(baseGamePath, 
+                "BepInEx", "plugins", "SAIN", "Personalities", "NicknamePersonalities.json");
 
             logger.Info($"[Twitch Players] SAIN personalities file detected at: {sainPersonalitiesPath}");
 
@@ -200,7 +168,7 @@ public class InitTwitchPlayers(ISptLogger<InitTwitchPlayers> logger, ModHelper m
             var ttvJson = File.ReadAllText(ttvNamesPath);
             var ttvData = JsonSerializer.Deserialize<TtvNamesData>(ttvJson);
 
-            if (ttvData?.GeneratedTwitchNames == null || ttvData.GeneratedTwitchNames.Count == 0)
+            if (ttvData?.GeneratedTwitchNames == null)
             {
                 logger.Warning("[Twitch Players] No TTV names found to apply to SAIN");
                 return;
@@ -214,7 +182,7 @@ public class InitTwitchPlayers(ISptLogger<InitTwitchPlayers> logger, ModHelper m
 
             foreach (var kvp in ttvData.GeneratedTwitchNames)
             {
-                // Here assign personalities
+                 // Here assign personalities
                 // sainData.NicknamePersonalityMatches[kvp.Key] = kvp.Value;
             }
 
@@ -227,5 +195,42 @@ public class InitTwitchPlayers(ISptLogger<InitTwitchPlayers> logger, ModHelper m
         {
             logger.Error($"[Twitch Players] Error applying changes to SAIN: {ex.Message}");
         }
+    }
+    
+    private static int GetRandomPersonalityIdWithWeighting()
+    {
+        // Only choose ID 1 (Wreckless) and 3 (GigaChad)
+        //  SAIN ENUM
+        //  public enum EPersonality
+        //  {
+        //    None,             0
+        //    Wreckless,        1  
+        //    SnappingTurtle,   2
+        //    GigaChad,         3
+        //    Chad,             4
+        //    Rat,              5
+        //    Timmy,            6
+        //    Coward,           7
+        //    Normal            8
+        //  }
+        //
+        //
+        var personalityIds = new[] { 1, 3 }; // Wreckless, GigaChad
+        var weights = new[] { 0.3, 0.5 };
+    
+        var random = new Random();
+        var randomValue = random.NextDouble();
+        double cumulative = 0.0;
+    
+        for (int i = 0; i < weights.Length; i++)
+        {
+            cumulative += weights[i];
+            if (randomValue < cumulative)
+            {
+                return personalityIds[i];
+            }
+        }
+    
+        return personalityIds[0]; // fallback to Wreckless
     }
 }
