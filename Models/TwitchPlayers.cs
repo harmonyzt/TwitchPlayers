@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using TwitchPlayers.Enums;
 
 namespace TwitchPlayers.Models;
 
@@ -11,11 +12,14 @@ public record BotCallsignsNames()
 public record TtvNamesData()
 {
     [JsonPropertyName("GeneratedTwitchNames")]
-    public Dictionary<string, int> GeneratedTwitchNames { get; set; }
+    public Dictionary<string, EPersonality> GeneratedTwitchNames { get; set; }
 }
 
 public record SainPersonalityData()
 {
+    [JsonPropertyName("Description")] 
+    public string Description { get; set; }
+
     [JsonPropertyName("NicknamePersonalityMatches")]
-    public Dictionary<string, int> NicknamePersonalityMatches { get; set; }
+    public Dictionary<string, EPersonality> NicknamePersonalityMatches { get; set; }
 }
