@@ -6,6 +6,7 @@ using SPTarkov.Server.Core.DI;
 using SPTarkov.Server.Core.Helpers;
 using SPTarkov.Server.Core.Models.Spt.Mod;
 using SPTarkov.Server.Core.Models.Utils;
+using SPTarkov.Server.Core.Utils;
 
 namespace TwitchPlayers;
 
@@ -25,84 +26,51 @@ public record ModMetadata : AbstractModMetadata
 }
 
 [Injectable(TypePriority = OnLoadOrder.PostDBModLoader + 1)]
-public class InitTwitchPlayers(ISptLogger<InitTwitchPlayers> logger, ModHelper modHelper)
+public class InitTwitchPlayers(ISptLogger<InitTwitchPlayers> logger, ModHelper modHelper, JsonUtil jsonUtils)
     : IOnLoad
 {
-    public Task OnLoad()
+    public async Task OnLoad()
     {
         // Main path to the mod
-        var modPath = modHelper.GetAbsolutePathToModFolder(Assembly.GetExecutingAssembly());
+        var modPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
+        var pathToModsFolder = Directory.GetParent(modPath)?.FullName;
+        var botCallsignsPath = Path.Combine(pathToModsFolder, "BotCallsigns");
+        
+        logger.Info(modPath);
+        logger.Info(pathToModsFolder);
+        logger.Info(botCallsignsPath);
         
         if (Directory.Exists(modPath))
         {
-            FlagChecker(modPath);
+            HandleFlagFound(modPath, botCallsignsPath);
         }
 
-        return Task.CompletedTask;
+        return;
     }
 
-    // TODO: Remove this bs
-    private void FlagChecker(string modPath)
-    {
-
-        var pathToModsFolder = Directory.GetParent(modPath)?.FullName;
-        
-        var botCallsignsPath = Path.Combine(pathToModsFolder, "BotCallsigns");
-        
-        //var tempPath = Path.Combine(modPath, "Temp");
-        
-        if (!Directory.Exists(botCallsignsPath))
-        {
-            logger.Warning("[Twitch Players Validator] 'BotCallsigns' folder is missing/was renamed. Make sure you have installed this mod's dependencies. MOD WILL NOT WORK.");
-            return;
-        }
-
-        logger.Success("[Twitch Players Validator] Waiting for flag...");
-
-        //var namesReadyPath = Path.Combine(tempPath, "mod.ready");
-
-        // Check if it already exists and delete
-        //if (File.Exists(namesReadyPath))
-        //{
-        //    File.Delete(namesReadyPath);
-        //}
-
-        // Start monitoring
-        //var fileWatcher = new FileSystemWatcher(tempPath, "mod.ready")
-        //{
-        //    NotifyFilter = NotifyFilters.FileName | NotifyFilters.CreationTime
-        //};
-        
-        HandleFlagFound(modPath, botCallsignsPath);
-    }
-
-    private void HandleFlagFound(string modPath, string botCallsignsPath)
+    private async void HandleFlagFound(string modPath, string botCallsignsPath)
     {
         logger.Info("[Twitch Players Validator] Processing names..");
 
         LoadAllNames(modPath, botCallsignsPath);
-        ApplyChangesToSain(modPath);
     }
     
-    private void LoadAllNames(string modPath, string botCallsignsPath)
+    private async void LoadAllNames(string modPath, string botCallsignsPath)
     {
         try
         {
             var allNamesPath = Path.Combine(botCallsignsPath, "nameData", "allNames.json");
             
-            if (!File.Exists(allNamesPath))
-            {
-                logger.Error($"[Twitch Players] Could not find allNames.json at {allNamesPath}");
-                return;
-            }
-
-            var jsonData = File.ReadAllText(allNamesPath);
-            var botNameData = JsonSerializer.Deserialize<BotCallsignsNames>(jsonData);
-
+            // Skip this function
+            //if (!File.Exists(allNamesPath)) return;
+            
+            var botNameData = await jsonUtils.DeserializeFromFileAsync<BotCallsignsNames>(allNamesPath);
+            
             if (botNameData?.Names != null)
             {
                 UpdateTtvFile(botNameData, modPath);
             }
+            
         }
         catch (Exception ex)
         {
@@ -110,7 +78,7 @@ public class InitTwitchPlayers(ISptLogger<InitTwitchPlayers> logger, ModHelper m
         }
     }
 
-    private void UpdateTtvFile(BotCallsignsNames botNameData, string modPath)
+    private async void UpdateTtvFile(BotCallsignsNames botNameData, string modPath)
     {
         try
         {
@@ -132,13 +100,11 @@ public class InitTwitchPlayers(ISptLogger<InitTwitchPlayers> logger, ModHelper m
             var namesDir = Path.Combine(modPath, "Names");
             var ttvNamesPath = Path.Combine(namesDir, "ttv_names.json");
             var ttvData = new { generatedTwitchNames = updatedTtvNames };
-
-            var jsonOptions = new JsonSerializerOptions { WriteIndented = true };
-            File.WriteAllText(ttvNamesPath, JsonSerializer.Serialize(ttvData, jsonOptions));
+            
+            await File.WriteAllTextAsync(ttvNamesPath, jsonUtils.Serialize(ttvData, true));
 
             logger.Info($"[Twitch Players] Updated our main file ttv_names.json with {updatedTtvNames.Count} names");
-
-
+            
             ApplyChangesToSain(modPath);
         }
         catch (Exception ex)
@@ -147,15 +113,14 @@ public class InitTwitchPlayers(ISptLogger<InitTwitchPlayers> logger, ModHelper m
         }
     }
     
-    private void ApplyChangesToSain(string modPath)
+    private async void ApplyChangesToSain(string modPath)
     {
         try
         {
-
             // Find Nickname Personalities.json
             string baseGamePath = Path.GetFullPath(Path.Combine(modPath, @"..\..\..\.."));
             string sainPersonalitiesPath = Path.Combine(baseGamePath, 
-                "BepInEx", "plugins", "SAIN", "Personalities", "NicknamePersonalities.json");
+                "BepInEx", "plugins", "SAIN", "NicknamePersonalities.json");
 
             logger.Info($"[Twitch Players] SAIN personalities file detected at: {sainPersonalitiesPath}");
 
@@ -165,30 +130,19 @@ public class InitTwitchPlayers(ISptLogger<InitTwitchPlayers> logger, ModHelper m
                 logger.Error($"[Twitch Players] TTV names file not found at {ttvNamesPath}");
                 return;
             }
+            
+            var ttvData = await jsonUtils.DeserializeFromFileAsync<TtvNamesData>(ttvNamesPath);
 
-            var ttvJson = File.ReadAllText(ttvNamesPath);
-            var ttvData = JsonSerializer.Deserialize<TtvNamesData>(ttvJson);
-
-            if (ttvData?.GeneratedTwitchNames == null)
-            {
-                logger.Warning("[Twitch Players] No TTV names found to apply to SAIN");
-                return;
-            }
-
+            
             // Read existing SAIN data
-            var sainJson = File.ReadAllText(sainPersonalitiesPath);
-            var sainData = JsonSerializer.Deserialize<SainPersonalityData>(sainJson);
+            var sainData = await jsonUtils.DeserializeFromFileAsync<SainPersonalityData>(sainPersonalitiesPath);
 
             if (sainData == null) return;
 
-            foreach (var kvp in ttvData.GeneratedTwitchNames)
-            {
-                 // Here assign personalities
-                // sainData.NicknamePersonalityMatches[kvp.Key] = kvp.Value;
-            }
-
-            var jsonOptions = new JsonSerializerOptions { WriteIndented = true };
-            File.WriteAllText(sainPersonalitiesPath, JsonSerializer.Serialize(sainData, jsonOptions));
+            // Here assign personalities
+            sainData.NicknamePersonalityMatches = ttvData.GeneratedTwitchNames;
+        
+            await File.WriteAllTextAsync(sainPersonalitiesPath, jsonUtils.Serialize(sainData, true));
                 
             logger.Info($"[Twitch Players] Successfully applied {ttvData.GeneratedTwitchNames.Count} personalities to SAIN!");
         }
