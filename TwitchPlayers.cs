@@ -41,6 +41,7 @@ public class InitTwitchPlayers(ISptLogger<InitTwitchPlayers> logger, ModHelper m
         return Task.CompletedTask;
     }
 
+    // TODO: Remove this bs
     private void FlagChecker(string modPath)
     {
 
