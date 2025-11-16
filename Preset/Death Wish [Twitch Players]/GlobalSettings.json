@@ -4,7 +4,7 @@
     "GainSightCoef": 1.6,
     "ScatteringCoef": 0.01,
     "HearingDistanceCoef": 1.0,
-    "AggressionCoef": 1.75,
+    "AggressionCoef": 1.0,
     "PRECISION_SPEED_COEF": 3.6,
     "ACCURACY_SPEED_COEF": 0.8
   },
@@ -140,7 +140,7 @@
       "DAMAGE_MIN_MOD": 0.2,
       "DAMAGE_MAX_MOD": 3.0
     },
-    "AimCenterMassGlobal": false,
+    "AimCenterMassGlobal": true,
     "EnemyVelocityMaxBuff": 1.2,
     "EnemyVelocityMaxDebuff": 0.8,
     "EnemySprintingScatterMulti": 0.66,
