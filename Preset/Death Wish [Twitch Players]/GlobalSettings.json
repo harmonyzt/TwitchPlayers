@@ -5,8 +5,8 @@
     "ScatteringCoef": 0.01,
     "HearingDistanceCoef": 1.0,
     "AggressionCoef": 1.0,
-    "PRECISION_SPEED_COEF": 3.6,
-    "ACCURACY_SPEED_COEF": 0.35
+    "PRECISION_SPEED_COEF": 4.5,
+    "ACCURACY_SPEED_COEF": 0.17
   },
   "General": {
     "BotsUseGrenades": true,
@@ -818,14 +818,14 @@
   "Talk": {
     "TalkativeScavs": true,
     "TalkativePMCs": false,
-    "TalkativeRaidersRogues": true,
-    "TalkativeBosses": true,
+    "TalkativeRaidersRogues": false,
+    "TalkativeBosses": false,
     "TalkativeGoons": false,
-    "FriendlyReponseChance": 85.0,
-    "FriendlyReponseChanceAI": 80.0,
+    "FriendlyReponseChance": 95.0,
+    "FriendlyReponseChanceAI": 10.0,
     "FriendlyReponseDistance": 65.0,
-    "FriendlyReponseDistanceAI": 35.0,
-    "FriendlyResponseFrequencyLimit": 1.0,
+    "FriendlyReponseDistanceAI": 15.0,
+    "FriendlyResponseFrequencyLimit": 5.0,
     "FriendlyResponseMinRandomDelay": 0.33,
     "FriendlyResponseMaxRandomDelay": 0.75,
     "DisableBotTalkPatching": false
