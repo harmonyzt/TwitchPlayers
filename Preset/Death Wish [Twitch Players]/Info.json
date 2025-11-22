@@ -2,10 +2,10 @@
   "Name": "Death Wish [Twitch Players]",
   "Description": "Hardcode style designed for true chads. You WILL die. A lot.",
   "Creator": "harmony",
-  "SAINVersion": "4.2.0",
-  "SAINPresetVersion": "4.2.0",
-  "DateCreated": "10/22/2025 00:00:00",
-  "BaseSAINDifficulty": "hard",
+  "SAINVersion": "4.3.0",
+  "SAINPresetVersion": "4.3.0",
+  "DateCreated": "11/22/2025 00:00:00",
+  "BaseSAINDifficulty": "deathwish",
   "IsCustom": true,
   "CanEditName": true
 }

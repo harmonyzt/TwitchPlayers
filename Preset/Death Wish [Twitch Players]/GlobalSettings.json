@@ -6,7 +6,7 @@
     "HearingDistanceCoef": 1.0,
     "AggressionCoef": 1.0,
     "PRECISION_SPEED_COEF": 3.6,
-    "ACCURACY_SPEED_COEF": 0.8
+    "ACCURACY_SPEED_COEF": 0.35
   },
   "General": {
     "BotsUseGrenades": true,
@@ -419,6 +419,15 @@
         "AggressionCoef": 1.0,
         "PRECISION_SPEED_COEF": 1.0,
         "ACCURACY_SPEED_COEF": 1.0
+      },
+      "Labyrinth": {
+        "VisibleDistCoef": 1.0,
+        "GainSightCoef": 1.0,
+        "ScatteringCoef": 1.0,
+        "HearingDistanceCoef": 1.0,
+        "AggressionCoef": 1.0,
+        "PRECISION_SPEED_COEF": 1.0,
+        "ACCURACY_SPEED_COEF": 1.0
       }
     }
   },
@@ -524,17 +533,19 @@
     },
     "PERS_BOSSES": {
       "bossKilla": "Wreckless",
+      "bossKillaAgro": "Wreckless",
       "bossTagilla": "Wreckless",
+      "bossTagillaAgro": "Wreckless",
       "bossKolontay": "Wreckless",
       "bossKnight": "GigaChad",
       "followerBigPipe": "GigaChad",
       "followerBirdEye": "SnappingTurtle",
       "bossGluhar": "SnappingTurtle",
-      "bossKojaniy": "Rat",
-      "bossPartisan": "Rat",
-      "bossBully": "Coward",
-      "bossSanitar": "Coward",
-      "bossBoar": "Coward"
+      "bossKojaniy": "Chad",
+      "bossPartisan": "Chad",
+      "bossBully": "Chad",
+      "bossSanitar": "Chad",
+      "bossBoar": "Chad"
     },
     "GlobalAggression": 1.0,
     "SneakyBots": true,
