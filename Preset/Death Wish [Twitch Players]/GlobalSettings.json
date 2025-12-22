@@ -4,7 +4,7 @@
     "GainSightCoef": 1.6,
     "ScatteringCoef": 0.01,
     "HearingDistanceCoef": 1.0,
-    "AggressionCoef": 1.0,
+    "AggressionCoef": 0.7,
     "PRECISION_SPEED_COEF": 4.5,
     "ACCURACY_SPEED_COEF": 0.17
   },
@@ -70,11 +70,11 @@
       "MaxDazzleRange": 40.0,
       "AllowLightOnForDarkBuildings": true,
       "TurnLightOffNoEnemyPMC": true,
-      "TurnLightOffNoEnemySCAV": false,
+      "TurnLightOffNoEnemySCAV": true,
       "TurnLightOffNoEnemyGOONS": true,
-      "TurnLightOffNoEnemyBOSS": false,
-      "TurnLightOffNoEnemyFOLLOWER": false,
-      "TurnLightOffNoEnemyRAIDERROGUE": false,
+      "TurnLightOffNoEnemyBOSS": true,
+      "TurnLightOffNoEnemyFOLLOWER": true,
+      "TurnLightOffNoEnemyRAIDERROGUE": true,
       "DebugFlash": false,
       "SillyMode": false
     },
@@ -140,10 +140,10 @@
       "DAMAGE_MIN_MOD": 0.2,
       "DAMAGE_MAX_MOD": 3.0
     },
-    "AimCenterMassGlobal": true,
+    "AimCenterMassGlobal": false,
     "EnemyVelocityMaxBuff": 1.2,
     "EnemyVelocityMaxDebuff": 0.8,
-    "EnemySprintingScatterMulti": 0.66,
+    "EnemySprintingScatterMulti": 0.9,
     "ScatterMulti_PoseLevel": 1.2,
     "ScatterMulti_Prone": 1.3,
     "ScatterMulti_PartVis": 1.25,
@@ -160,7 +160,7 @@
     "IronSightScaleDistanceEnd": 75.0,
     "CenterMassVal": 0.3,
     "FasterCQBReactionsGlobal": true,
-    "AimDownSightsAimTimeMultiplier": 0.1
+    "AimDownSightsAimTimeMultiplier": 0.05
   },
   "Hearing": {
     "DOOR_OPEN_SOUND_RANGE": 40.0,
@@ -281,9 +281,9 @@
         "RandomizationMax": 1.25
       }
     },
-    "GunshotAudioMultiplier": 1.0,
+    "GunshotAudioMultiplier": 0.7,
     "FootstepAudioMultiplier": 1.0,
-    "SuppressorModifier": 0.6,
+    "SuppressorModifier": 0.33,
     "SubsonicModifier": 0.33,
     "HearingDistances": {
       "Caliber9x18PM": 110.0,
@@ -823,8 +823,8 @@
     "TalkativeGoons": false,
     "FriendlyReponseChance": 95.0,
     "FriendlyReponseChanceAI": 10.0,
-    "FriendlyReponseDistance": 65.0,
-    "FriendlyReponseDistanceAI": 15.0,
+    "FriendlyReponseDistance": 15.0,
+    "FriendlyReponseDistanceAI": 10.0,
     "FriendlyResponseFrequencyLimit": 5.0,
     "FriendlyResponseMinRandomDelay": 0.33,
     "FriendlyResponseMaxRandomDelay": 0.75,
