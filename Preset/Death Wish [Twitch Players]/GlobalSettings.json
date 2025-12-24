@@ -11,7 +11,7 @@
   "General": {
     "BotsUseGrenades": true,
     "BotVsBotGrenade": true,
-    "BOT_INTERTIA_TOGGLE": true,
+    "BOT_INERTIA_TOGGLE": true,
     "VanillaBots": {
       "VanillaScavs": false,
       "VanillaBosses": false,
@@ -63,7 +63,7 @@
       "DisableAllDoors": false
     },
     "Extract": {
-      "SAIN_EXTRACT_TOGGLE": true
+      "SAIN_EXTRACT_TOGGLE": false
     },
     "Flashlight": {
       "DazzleEffectiveness": 3.0,
@@ -159,6 +159,7 @@
     "IronSightScaleDistanceStart": 40.0,
     "IronSightScaleDistanceEnd": 75.0,
     "CenterMassVal": 0.3,
+    "MinAimTime": 0.0,
     "FasterCQBReactionsGlobal": true,
     "AimDownSightsAimTimeMultiplier": 0.05
   },
@@ -307,14 +308,16 @@
       "Caliber20g": 185.0,
       "Caliber12g": 185.0,
       "Caliber23x75": 210.0,
+      "Caliber20x1mm": 50.0,
       "Caliber26x75": 50.0,
       "Caliber30x29": 50.0,
       "Caliber40x46": 50.0,
       "Caliber40mmRU": 50.0,
+      "Caliber127x99": 275.0,
       "Caliber127x108": 300.0,
+      "Caliber725": 400.0,
       "Caliber68x51": 200.0,
       "Default": 125.0,
-      "Caliber20x1": 125.0,
       "Caliber127x33": 125.0,
       "Caliber9x18PMM": 125.0
     }
@@ -510,13 +513,6 @@
       "NotLookingAngle": 45.0,
       "NotLookingVisionSpeedModifier": 1.1,
       "NotLookingAccuracyAmount": 0.33
-    },
-    "NoBushESP": {
-      "NoBushESPToggle": true,
-      "NoBushESPEnhanced": false,
-      "NoBushESPFrequency": 0.1,
-      "NoBushESPEnhancedRatio": 0.75,
-      "NoBushESPDebugMode": false
     }
   },
   "Mind": {
@@ -601,6 +597,7 @@
     "SUP_DECAY_FREQ": 0.25,
     "SUP_CHECK_FREQ": 0.5,
     "SUPP_AMOUNTS": {
+      "Caliber20x1mm": 0.25,
       "Caliber9x18PM": 1.0,
       "Caliber9x19PARA": 1.1,
       "Caliber46x30": 1.2,
@@ -627,7 +624,9 @@
       "Caliber40x46": 3.0,
       "Caliber40mmRU": 3.0,
       "Caliber86x70": 5.0,
+      "Caliber127x99": 5.0,
       "Caliber127x108": 5.0,
+      "Caliber725": 10.0,
       "Default": 2.0
     },
     "SUPP_MAX_NUM": 30.0
