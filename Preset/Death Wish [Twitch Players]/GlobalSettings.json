@@ -80,7 +80,8 @@
     },
     "Jokes": {
       "RandomCheaters": false,
-      "RandomCheaterChance": 1.0
+      "RandomCheaterChance": 1.0,
+      "EnableKhorovodPMCs": true
     },
     "Debug": {
       "Logs": {
@@ -111,15 +112,15 @@
       },
       "Overlay": {
         "Overlay_Info": true,
-        "Overlay_Info_Expanded": true,
+        "Overlay_Info_Expanded": false,
         "Overlay_Search": true,
-        "Overlay_EnemyLists": true,
+        "Overlay_EnemyLists": false,
         "Overlay_EnemyInfo": true,
-        "Overlay_EnemyInfo_Expanded": true,
-        "Overlay_Decisions": true,
-        "OverLay_AimInfo": true,
-        "OverLay_AlwaysShowClosestHumanInfo": true,
-        "OverLay_AlwaysShowMainPlayerInfo": true
+        "Overlay_EnemyInfo_Expanded": false,
+        "Overlay_Decisions": false,
+        "OverLay_AimInfo": false,
+        "OverLay_AlwaysShowClosestHumanInfo": false,
+        "OverLay_AlwaysShowMainPlayerInfo": false
       }
     },
     "Layers": {
@@ -709,6 +710,7 @@
     "BOT_RECOIL_BASELINE": 100.0,
     "BOT_RECOIL_BASELINE_REALISM": 125.0,
     "AmmoCaliberShootability": {
+      "Caliber20x1mm": 0.225,
       "Caliber9x18PM": 0.225,
       "Caliber9x19PARA": 0.275,
       "Caliber46x30": 0.325,
@@ -734,11 +736,14 @@
       "Caliber30x29": 1.0,
       "Caliber40x46": 1.0,
       "Caliber40mmRU": 1.0,
+      "Caliber127x99": 0.5,
       "Caliber127x108": 0.5,
+      "Caliber725": 1.0,
       "Caliber68x51": 0.6,
       "Default": 0.5
     },
     "AmmoCaliberFullAutoMaxDistances": {
+      "Caliber20x1mm": 80.0,
       "Caliber9x18PM": 80.0,
       "Caliber9x19PARA": 80.0,
       "Caliber46x30": 70.0,
@@ -764,7 +769,9 @@
       "Caliber30x29": 30.0,
       "Caliber40x46": 30.0,
       "Caliber40mmRU": 30.0,
+      "Caliber127x99": 30.0,
       "Caliber127x108": 30.0,
+      "Caliber725": 30.0,
       "Caliber68x51": 50.0,
       "Default": 55.0
     },
