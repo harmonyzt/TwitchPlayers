@@ -111,15 +111,15 @@
       },
       "Overlay": {
         "Overlay_Info": true,
-        "Overlay_Info_Expanded": false,
+        "Overlay_Info_Expanded": true,
         "Overlay_Search": true,
-        "Overlay_EnemyLists": false,
+        "Overlay_EnemyLists": true,
         "Overlay_EnemyInfo": true,
-        "Overlay_EnemyInfo_Expanded": false,
-        "Overlay_Decisions": false,
-        "OverLay_AimInfo": false,
-        "OverLay_AlwaysShowClosestHumanInfo": false,
-        "OverLay_AlwaysShowMainPlayerInfo": false
+        "Overlay_EnemyInfo_Expanded": true,
+        "Overlay_Decisions": true,
+        "OverLay_AimInfo": true,
+        "OverLay_AlwaysShowClosestHumanInfo": true,
+        "OverLay_AlwaysShowMainPlayerInfo": true
       }
     },
     "Layers": {
