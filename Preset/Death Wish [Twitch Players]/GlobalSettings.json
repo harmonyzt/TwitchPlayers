@@ -81,7 +81,7 @@
     "Jokes": {
       "RandomCheaters": false,
       "RandomCheaterChance": 1.0,
-      "EnableKhorovodPMCs": true
+      "EnableKhorovodPMCs": false
     },
     "Debug": {
       "Logs": {
