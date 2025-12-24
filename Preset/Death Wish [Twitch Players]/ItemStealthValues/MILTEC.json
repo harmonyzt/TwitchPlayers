@@ -1,6 +1,6 @@
 {
   "Name": "MILTEC",
-  "EquipmentType": 0,
+  "EquipmentType": "Headwear",
   "ItemID": "5b4327aa5acfc400175496e0",
   "StealthValue": 1.2
 }
