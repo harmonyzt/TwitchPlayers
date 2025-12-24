@@ -29,13 +29,15 @@
       "sectantPriest",
       "sectantWarrior",
       "bossKilla",
-      "bossPartisan",
       "bossBully",
       "followerBully",
       "bossKojaniy",
       "followerKojaniy",
       "bossTagilla",
       "followerTagilla",
+      "bossTagillaAgro",
+      "bossKillaAgro",
+      "tagillaHelperAgro",
       "bossSanitar",
       "followerSanitar",
       "bossGluhar",
@@ -50,7 +52,8 @@
       "bossBoarSniper",
       "bossKolontay",
       "followerKolontayAssault",
-      "followerKolontaySecurity"
+      "followerKolontaySecurity",
+      "bossPartisan"
     ]
   },
   "Behavior": {
