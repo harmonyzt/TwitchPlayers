@@ -63,7 +63,7 @@
       "DisableAllDoors": false
     },
     "Extract": {
-      "SAIN_EXTRACT_TOGGLE": false
+      "SAIN_EXTRACT_TOGGLE": true
     },
     "Flashlight": {
       "DazzleEffectiveness": 3.0,
@@ -160,7 +160,7 @@
     "IronSightScaleDistanceStart": 40.0,
     "IronSightScaleDistanceEnd": 75.0,
     "CenterMassVal": 0.3,
-    "MinAimTime": 0.0,
+    "MinAimTime": 0.05,
     "FasterCQBReactionsGlobal": true,
     "AimDownSightsAimTimeMultiplier": 0.05
   },

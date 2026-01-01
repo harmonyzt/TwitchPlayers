@@ -15,7 +15,7 @@ public record ModMetadata : AbstractModMetadata
     public override string Name { get; init; } = "Twitch Players";
     public override string Author { get; init; } = "harmony";
     public override List<string>? Contributors { get; init; }
-    public override SemanticVersioning.Version Version { get; init; } = new("3.0.5");
+    public override SemanticVersioning.Version Version { get; init; } = new("3.0.6");
     public override SemanticVersioning.Range SptVersion { get; init; } = new("~4.0.0");
     public override List<string>? Incompatibilities { get; init; }
     public override Dictionary<string, SemanticVersioning.Range>? ModDependencies { get; init; }
@@ -129,6 +129,12 @@ public class InitTwitchPlayers(ISptLogger<InitTwitchPlayers> logger, JsonUtil js
 
             var ttvData = await jsonUtils.DeserializeFromFileAsync<TtvNamesData>(ttvNamesPath);
 
+            if (ttvData == null)
+            {
+                logger.Error($"[Twitch Players] ttv_names.json data was null! Report this to the developer ASAP!");
+                return;
+            }
+            
             // Read existing SAIN NicknamePersonalities.json data
             var sainData = await jsonUtils.DeserializeFromFileAsync<SainPersonalityData>(sainPersonalitiesPath);
             if (sainData == null) return;
@@ -149,7 +155,7 @@ public class InitTwitchPlayers(ISptLogger<InitTwitchPlayers> logger, JsonUtil js
 
     private static EPersonality GetRandomPersonalityIdWithWeighting()
     {
-        var personalityIds = new[] { EPersonality.Wreckless, EPersonality.GigaChad };
+        var personalityIds = new[] { EPersonality.Wreckless, EPersonality.SnappingTurtle };
         var weights = new[] { 0.3, 0.5 };
         var random = new Random();
         var randomValue = random.NextDouble();
