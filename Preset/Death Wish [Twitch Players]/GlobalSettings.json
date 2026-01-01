@@ -1,12 +1,12 @@
 {
   "Difficulty": {
     "VisibleDistCoef": 2.0,
-    "GainSightCoef": 2.0,
+    "GainSightCoef": 3.25,
     "ScatteringCoef": 0.01,
     "HearingDistanceCoef": 1.0,
     "AggressionCoef": 0.7,
-    "PRECISION_SPEED_COEF": 4.5,
-    "ACCURACY_SPEED_COEF": 0.17
+    "PRECISION_SPEED_COEF": 5.0,
+    "ACCURACY_SPEED_COEF": 0.1
   },
   "General": {
     "BotsUseGrenades": true,
@@ -162,7 +162,7 @@
     "CenterMassVal": 0.3,
     "MinAimTime": 0.05,
     "FasterCQBReactionsGlobal": true,
-    "AimDownSightsAimTimeMultiplier": 0.05
+    "AimDownSightsAimTimeMultiplier": 0.01
   },
   "Hearing": {
     "DOOR_OPEN_SOUND_RANGE": 40.0,
@@ -218,9 +218,9 @@
     "GUNSHOT_ENVIR_MOD": 0.65,
     "FOOTSTEP_ENVIR_MOD": 0.7,
     "MIN_ENVIRONMENT_MOD": 0.05,
-    "HEAR_MODIFIER_NO_EARS": 0.6,
-    "HEAR_MODIFIER_HEAVY_HELMET": 0.8,
-    "HEAR_MODIFIER_DYING": 0.8,
+    "HEAR_MODIFIER_NO_EARS": 0.75,
+    "HEAR_MODIFIER_HEAVY_HELMET": 0.82,
+    "HEAR_MODIFIER_DYING": 0.7,
     "HEAR_MODIFIER_SPRINT": 0.85,
     "HEAR_MODIFIER_HEAVYBREATH": 0.65,
     "HEAR_MODIFIER_MIN_CLAMP": 0.01,
@@ -233,7 +233,7 @@
     "HEAR_CHANCE_LONGRANGE_MINCHANCE_HEADPHONES": 1.0,
     "HEAR_CHANCE_NOTMOVING_VELOCITY": 0.05,
     "HEAR_CHANCE_NOTMOVING_MINCHANCE": 2.0,
-    "HEAR_CHANCE_NOTMOVING_MINCHANCE_HEADPHONES": 4.0,
+    "HEAR_CHANCE_NOTMOVING_MINCHANCE_HEADPHONES": 10.0,
     "HEAR_CHANCE_HEADPHONES_OTHERSOUNDS": 3.0,
     "HEAR_CHANCE_CURRENTENEMY_MINCHANCE": 2.0,
     "HEAR_CHANCE_CURRENTENEMY_MINCHANCE_HEADPHONES": 3.0,
@@ -701,7 +701,7 @@
   "Shoot": {
     "MIN_FIRE_RATE_INTERVAL": 0.1,
     "MAX_FIRE_RATE_INTERVAL": 4.0,
-    "MAX_FIRE_RATE_COEF_FULLAUTO": 0.25,
+    "MAX_FIRE_RATE_COEF_FULLAUTO": 0.1,
     "FIRERATE_RANDOMIZATION_COEF": 0.25,
     "ONLY_SEMIAUTO_TOGGLE": false,
     "BOT_RECOIL_COEF": 0.5,
@@ -780,7 +780,7 @@
       "assaultCarbine": 0.5,
       "assaultRifle": 0.5,
       "machinegun": 0.15,
-      "smg": 0.25,
+      "smg": 0.75,
       "pistol": 0.4,
       "marksmanRifle": 0.75,
       "sniperRifle": 1.0,

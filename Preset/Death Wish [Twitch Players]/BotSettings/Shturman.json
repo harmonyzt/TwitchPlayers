@@ -25,7 +25,7 @@
       },
       "Aiming": {
         "AimCenterMass": false,
-        "AimForHead": false,
+        "AimForHead": true,
         "AimForHeadChance": 3.0,
         "DistanceAimTimeMultiplier": 1.0,
         "AngleAimTimeMultiplier": 1.0,
@@ -127,7 +127,7 @@
       },
       "Aiming": {
         "AimCenterMass": false,
-        "AimForHead": false,
+        "AimForHead": true,
         "AimForHeadChance": 3.0,
         "DistanceAimTimeMultiplier": 1.0,
         "AngleAimTimeMultiplier": 1.0,
@@ -229,7 +229,7 @@
       },
       "Aiming": {
         "AimCenterMass": false,
-        "AimForHead": false,
+        "AimForHead": true,
         "AimForHeadChance": 2.0,
         "DistanceAimTimeMultiplier": 1.0,
         "AngleAimTimeMultiplier": 1.0,
@@ -331,7 +331,7 @@
       },
       "Aiming": {
         "AimCenterMass": false,
-        "AimForHead": false,
+        "AimForHead": true,
         "AimForHeadChance": 2.0,
         "DistanceAimTimeMultiplier": 1.0,
         "AngleAimTimeMultiplier": 1.0,
