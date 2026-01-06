@@ -56,7 +56,7 @@ public class InitTwitchPlayers(ISptLogger<InitTwitchPlayers> logger, JsonUtil js
             // Skip this function if bot callsigns haven't generated allNames.json yet
             if (!File.Exists(allNamesPath))
             {
-                logger.Warning("[Twitch Players] All names from Bot Callsigns were not found. Try restarting the server for changes to apply.");
+                logger.Warning("[Twitch Players] All names from Bot Callsigns were not found. Try restarting SPT Server for changes to apply.");
                 return;
             }
             
@@ -79,7 +79,7 @@ public class InitTwitchPlayers(ISptLogger<InitTwitchPlayers> logger, JsonUtil js
         {
             // Filter TTV names
             var ttvNames = botNameData.Names.Where(name => System.Text.RegularExpressions.Regex.IsMatch(name,
-                @"twitch|ttv|twiitch|chad|gigachad|youtube|_TV",
+                @"twitch|ttv|YT|twiitch|chad|gigachad|youtube|_TV",
                 System.Text.RegularExpressions.RegexOptions.IgnoreCase)).ToList();
             var updatedTtvNames = new Dictionary<string, EPersonality>();
             foreach (var name in ttvNames)
