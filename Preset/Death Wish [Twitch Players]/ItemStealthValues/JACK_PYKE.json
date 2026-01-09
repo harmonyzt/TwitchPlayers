@@ -1,6 +1,6 @@
 {
   "Name": "JACK_PYKE",
-  "EquipmentType": "Headwear",
+  "EquipmentType": 0,
   "ItemID": "618aef6d0a5a59657e5f55ee",
   "StealthValue": 1.2
 }

@@ -1,7 +1,7 @@
 {
   "Difficulty": {
     "VisibleDistCoef": 2.0,
-    "GainSightCoef": 3.25,
+    "GainSightCoef": 5.35,
     "ScatteringCoef": 0.01,
     "HearingDistanceCoef": 1.0,
     "AggressionCoef": 0.7,
@@ -160,7 +160,7 @@
     "IronSightScaleDistanceStart": 40.0,
     "IronSightScaleDistanceEnd": 75.0,
     "CenterMassVal": 0.3,
-    "MinAimTime": 0.05,
+    "MinAimTime": 0.0,
     "FasterCQBReactionsGlobal": true,
     "AimDownSightsAimTimeMultiplier": 0.01
   },
@@ -542,7 +542,8 @@
       "bossPartisan": "Chad",
       "bossBully": "Chad",
       "bossSanitar": "Chad",
-      "bossBoar": "Chad"
+      "bossBoar": "Chad",
+      "gifter": "GigaChad"
     },
     "GlobalAggression": 1.0,
     "SneakyBots": true,
@@ -675,27 +676,27 @@
         "SmoothingMode": "SmoothDamp"
       },
       "Combat": {
-        "SmoothingValue": 0.07,
-        "MaxTurnSpeed": 300.0,
+        "SmoothingValue": 0.01,
+        "MaxTurnSpeed": 400.0,
         "SmoothingMode": "SmoothDamp"
       },
       "CombatSprint": {
-        "SmoothingValue": 0.075,
-        "MaxTurnSpeed": 300.0,
+        "SmoothingValue": 0.01,
+        "MaxTurnSpeed": 400.0,
         "SmoothingMode": "SmoothDamp"
       },
       "CombatVisibleEnemy": {
-        "SmoothingValue": 0.09,
-        "MaxTurnSpeed": 360.0,
+        "SmoothingValue": 0.01,
+        "MaxTurnSpeed": 450.0,
         "SmoothingMode": "SmoothDamp"
       },
       "Aiming": {
-        "SmoothingValue": 0.1,
-        "MaxTurnSpeed": 360.0,
+        "SmoothingValue": 0.01,
+        "MaxTurnSpeed": 400.0,
         "SmoothingMode": "SmoothDamp"
       }
     },
-    "ConvergenceBoost": 1.8,
+    "ConvergenceBoost": 2.0,
     "PathVisionMinCommandsPerJob": 256.0
   },
   "Shoot": {
@@ -704,7 +705,7 @@
     "MAX_FIRE_RATE_COEF_FULLAUTO": 0.1,
     "FIRERATE_RANDOMIZATION_COEF": 0.25,
     "ONLY_SEMIAUTO_TOGGLE": false,
-    "BOT_RECOIL_COEF": 0.5,
+    "BOT_RECOIL_COEF": 0.0100000007,
     "BOT_RECOIL_ADD": 0.0,
     "BOT_RECOIL_DECAY_COEF": 0.3,
     "BOT_RECOIL_BASELINE": 100.0,
