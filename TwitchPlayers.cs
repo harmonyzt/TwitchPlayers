@@ -1,4 +1,5 @@
 using System.Reflection;
+using SAINServerMod.Models.Preset.Personalities;
 using SAINServerMod.Services;
 using TwitchPlayers.Models;
 using SPTarkov.DI.Annotations;
@@ -6,7 +7,6 @@ using SPTarkov.Server.Core.DI;
 using SPTarkov.Server.Core.Models.Spt.Mod;
 using SPTarkov.Server.Core.Models.Utils;
 using SPTarkov.Server.Core.Utils;
-using TwitchPlayers.Enums;
 
 namespace TwitchPlayers;
 
@@ -139,7 +139,7 @@ public class InitTwitchPlayers(ISptLogger<InitTwitchPlayers> logger, JsonUtil js
 
             // Assign personalities inside NicknamePersonalities.json
             // TODO: Fix
-            sainConfigService.NicknamesModel.NicknamePersonalityMatches = ttvData.GeneratedTwitchNames;
+            sainConfigService.NicknamesModel.NicknamePersonalities = ttvData.GeneratedTwitchNames;
             
             
             logger.Info(

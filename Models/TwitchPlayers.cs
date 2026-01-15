@@ -1,5 +1,5 @@
 using System.Text.Json.Serialization;
-using TwitchPlayers.Enums;
+using SAINServerMod.Models.Preset.Personalities;
 
 namespace TwitchPlayers.Models;
 
