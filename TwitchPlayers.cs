@@ -141,7 +141,6 @@ public class InitTwitchPlayers(ISptLogger<InitTwitchPlayers> logger, JsonUtil js
             // TODO: Fix
             sainConfigService.NicknamesModel.NicknamePersonalities = ttvData.GeneratedTwitchNames;
             
-            
             logger.Info(
                 $"[Twitch Players] Successfully applied {ttvData.GeneratedTwitchNames.Count} name:personalities to SAIN!");
         }
