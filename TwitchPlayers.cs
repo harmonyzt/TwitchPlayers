@@ -1,4 +1,5 @@
 using System.Reflection;
+using SAINServerMod.Services;
 using TwitchPlayers.Models;
 using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.DI;
@@ -25,10 +26,13 @@ public record ModMetadata : AbstractModMetadata
 }
 
 [Injectable(TypePriority = OnLoadOrder.PostDBModLoader + 1)]
-public class InitTwitchPlayers(ISptLogger<InitTwitchPlayers> logger, JsonUtil jsonUtils) : IOnLoad
+public class InitTwitchPlayers(ISptLogger<InitTwitchPlayers> logger, JsonUtil jsonUtils, ConfigService sainConfigService) : IOnLoad
 {
-    public Task OnLoad()
+    public async Task OnLoad()
     {
+        // Await SAIN
+        await sainConfigService.LoadAsync();
+        
         // Main path to the mod
         var modPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
         var pathToModsFolder = Directory.GetParent(modPath)?.FullName;
@@ -38,8 +42,6 @@ public class InitTwitchPlayers(ISptLogger<InitTwitchPlayers> logger, JsonUtil js
         {
             HandleFlagFound(modPath, botCallsignsPath);
         }
-
-        return Task.CompletedTask;
     }
 
     private void HandleFlagFound(string modPath, string botCallsignsPath)
@@ -134,16 +136,11 @@ public class InitTwitchPlayers(ISptLogger<InitTwitchPlayers> logger, JsonUtil js
                 logger.Error($"[Twitch Players] ttv_names.json data was null! Report this to the developer ASAP!");
                 return;
             }
-            
-            // Read existing SAIN NicknamePersonalities.json data
-            var sainData = await jsonUtils.DeserializeFromFileAsync<SainPersonalityData>(sainPersonalitiesPath);
-            if (sainData == null) return;
 
             // Assign personalities inside NicknamePersonalities.json
-            sainData.NicknamePersonalityMatches = ttvData.GeneratedTwitchNames;
-
-            // Write the file back
-            await File.WriteAllTextAsync(sainPersonalitiesPath, jsonUtils.Serialize(sainData, true));
+            // TODO: Fix
+            sainConfigService.NicknamesModel.NicknamePersonalityMatches = ttvData.GeneratedTwitchNames;
+            
             logger.Info(
                 $"[Twitch Players] Successfully applied {ttvData.GeneratedTwitchNames.Count} name:personalities to SAIN!");
         }

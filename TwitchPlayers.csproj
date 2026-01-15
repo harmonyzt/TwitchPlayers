@@ -23,6 +23,12 @@
         <None Include="$(MSBuildProjectFullPath).user" Condition="Exists('$(MSBuildProjectFullPath).user')" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Reference Include="SAINServerMod">
+        <HintPath>..\..\..\Games\SPT400\SPT\user\mods\Solarint-SAIN-ServerMod\SAINServerMod.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
     <PropertyGroup>
         <ModsDirectoryPath>$(SPTPath)\user\mods\$(MSBuildProjectName)</ModsDirectoryPath>
     </PropertyGroup>
