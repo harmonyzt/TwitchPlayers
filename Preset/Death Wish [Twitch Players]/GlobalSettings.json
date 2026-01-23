@@ -1,16 +1,16 @@
 {
   "Difficulty": {
     "VisibleDistCoef": 2.0,
-    "GainSightCoef": 5.35,
-    "ScatteringCoef": 0.01,
+    "GainSightCoef": 1.0,
+    "ScatteringCoef": 0.5,
     "HearingDistanceCoef": 1.0,
-    "AggressionCoef": 0.7,
-    "PRECISION_SPEED_COEF": 5.0,
-    "ACCURACY_SPEED_COEF": 0.1
+    "AggressionCoef": 1.0,
+    "PRECISION_SPEED_COEF": 1.0,
+    "ACCURACY_SPEED_COEF": 1.0
   },
   "General": {
     "BotsUseGrenades": true,
-    "BotVsBotGrenade": true,
+    "BotVsBotGrenade": false,
     "BOT_INERTIA_TOGGLE": true,
     "VanillaBots": {
       "VanillaScavs": false,
@@ -132,7 +132,7 @@
   "Aiming": {
     "HitEffects": {
       "HIT_REACTION_TOGGLE": false,
-      "DAMAGE_MANUAL_MODIFIER": 1.0,
+      "DAMAGE_MANUAL_MODIFIER": 0.03,
       "USE_HIT_POINT_DIRECTION": true,
       "HIT_POINT_DIRECTION_BASE_DISTANCE": 0.5,
       "DAMAGE_BASE_MIN_ANGLE": 7.0,
@@ -144,7 +144,7 @@
     "AimCenterMassGlobal": false,
     "EnemyVelocityMaxBuff": 1.2,
     "EnemyVelocityMaxDebuff": 0.8,
-    "EnemySprintingScatterMulti": 0.9,
+    "EnemySprintingScatterMulti": 0.66,
     "ScatterMulti_PoseLevel": 1.2,
     "ScatterMulti_Prone": 1.3,
     "ScatterMulti_PartVis": 1.25,
@@ -160,9 +160,9 @@
     "IronSightScaleDistanceStart": 40.0,
     "IronSightScaleDistanceEnd": 75.0,
     "CenterMassVal": 0.3,
-    "MinAimTime": 0.0,
+    "MinAimTime": 0.5,
     "FasterCQBReactionsGlobal": true,
-    "AimDownSightsAimTimeMultiplier": 0.01
+    "AimDownSightsAimTimeMultiplier": 0.2
   },
   "Hearing": {
     "DOOR_OPEN_SOUND_RANGE": 40.0,
@@ -218,9 +218,9 @@
     "GUNSHOT_ENVIR_MOD": 0.65,
     "FOOTSTEP_ENVIR_MOD": 0.7,
     "MIN_ENVIRONMENT_MOD": 0.05,
-    "HEAR_MODIFIER_NO_EARS": 0.75,
-    "HEAR_MODIFIER_HEAVY_HELMET": 0.82,
-    "HEAR_MODIFIER_DYING": 0.7,
+    "HEAR_MODIFIER_NO_EARS": 0.6,
+    "HEAR_MODIFIER_HEAVY_HELMET": 0.8,
+    "HEAR_MODIFIER_DYING": 0.8,
     "HEAR_MODIFIER_SPRINT": 0.85,
     "HEAR_MODIFIER_HEAVYBREATH": 0.65,
     "HEAR_MODIFIER_MIN_CLAMP": 0.01,
@@ -233,13 +233,16 @@
     "HEAR_CHANCE_LONGRANGE_MINCHANCE_HEADPHONES": 1.0,
     "HEAR_CHANCE_NOTMOVING_VELOCITY": 0.05,
     "HEAR_CHANCE_NOTMOVING_MINCHANCE": 2.0,
-    "HEAR_CHANCE_NOTMOVING_MINCHANCE_HEADPHONES": 10.0,
+    "HEAR_CHANCE_NOTMOVING_MINCHANCE_HEADPHONES": 4.0,
     "HEAR_CHANCE_HEADPHONES_OTHERSOUNDS": 3.0,
     "HEAR_CHANCE_CURRENTENEMY_MINCHANCE": 2.0,
     "HEAR_CHANCE_CURRENTENEMY_MINCHANCE_HEADPHONES": 3.0,
     "BaseSoundRange_Looting": 40.0,
     "BaseSoundRange_MovementTurnSkid": 30.0,
     "BaseSoundRange_GrenadePinDraw": 35.0,
+    "BaseSoundRange_Footstep": 70.0,
+    "BaseSoundRange_Sprint": 70.0,
+    "BaseSoundRange_Jump": 70.0,
     "BaseSoundRange_Prone": 50.0,
     "BaseSoundRange_Healing": 40.0,
     "BaseSoundRange_Reload": 30.0,
@@ -283,7 +286,7 @@
         "RandomizationMax": 1.25
       }
     },
-    "GunshotAudioMultiplier": 0.7,
+    "GunshotAudioMultiplier": 1.0,
     "FootstepAudioMultiplier": 1.0,
     "SuppressorModifier": 0.33,
     "SubsonicModifier": 0.33,
@@ -517,7 +520,7 @@
     }
   },
   "Mind": {
-    "TARGET_SUPPRESS_TOGGLE": false,
+    "TARGET_SUPPRESS_TOGGLE": true,
     "ForcePersonality": {
       "Wreckless": false,
       "GigaChad": false,
@@ -593,7 +596,7 @@
         "HearingDistCoef": 0.25
       }
     },
-    "SUPP_AMOUNT_MULTI": 0.15,
+    "SUPP_AMOUNT_MULTI": 1.0,
     "SUPP_STRENGTH_MULTI": 1.0,
     "SUP_DECAY_AMOUNT": 0.25,
     "SUP_DECAY_FREQ": 0.25,
@@ -676,27 +679,27 @@
         "SmoothingMode": "SmoothDamp"
       },
       "Combat": {
-        "SmoothingValue": 0.01,
-        "MaxTurnSpeed": 400.0,
+        "SmoothingValue": 0.07,
+        "MaxTurnSpeed": 300.0,
         "SmoothingMode": "SmoothDamp"
       },
       "CombatSprint": {
-        "SmoothingValue": 0.01,
-        "MaxTurnSpeed": 400.0,
+        "SmoothingValue": 0.075,
+        "MaxTurnSpeed": 300.0,
         "SmoothingMode": "SmoothDamp"
       },
       "CombatVisibleEnemy": {
-        "SmoothingValue": 0.01,
-        "MaxTurnSpeed": 450.0,
+        "SmoothingValue": 0.09,
+        "MaxTurnSpeed": 360.0,
         "SmoothingMode": "SmoothDamp"
       },
       "Aiming": {
-        "SmoothingValue": 0.01,
-        "MaxTurnSpeed": 400.0,
+        "SmoothingValue": 0.1,
+        "MaxTurnSpeed": 360.0,
         "SmoothingMode": "SmoothDamp"
       }
     },
-    "ConvergenceBoost": 2.0,
+    "ConvergenceBoost": 1.1,
     "PathVisionMinCommandsPerJob": 256.0
   },
   "Shoot": {
@@ -705,7 +708,7 @@
     "MAX_FIRE_RATE_COEF_FULLAUTO": 0.1,
     "FIRERATE_RANDOMIZATION_COEF": 0.25,
     "ONLY_SEMIAUTO_TOGGLE": false,
-    "BOT_RECOIL_COEF": 0.0100000007,
+    "BOT_RECOIL_COEF": 0.1,
     "BOT_RECOIL_ADD": 0.0,
     "BOT_RECOIL_DECAY_COEF": 0.3,
     "BOT_RECOIL_BASELINE": 100.0,
@@ -825,48 +828,48 @@
   "Talk": {
     "TalkativeScavs": true,
     "TalkativePMCs": false,
-    "TalkativeRaidersRogues": false,
-    "TalkativeBosses": false,
+    "TalkativeRaidersRogues": true,
+    "TalkativeBosses": true,
     "TalkativeGoons": false,
-    "FriendlyReponseChance": 95.0,
-    "FriendlyReponseChanceAI": 10.0,
-    "FriendlyReponseDistance": 15.0,
-    "FriendlyReponseDistanceAI": 10.0,
-    "FriendlyResponseFrequencyLimit": 5.0,
+    "FriendlyReponseChance": 85.0,
+    "FriendlyReponseChanceAI": 80.0,
+    "FriendlyReponseDistance": 65.0,
+    "FriendlyReponseDistanceAI": 35.0,
+    "FriendlyResponseFrequencyLimit": 1.0,
     "FriendlyResponseMinRandomDelay": 0.33,
     "FriendlyResponseMaxRandomDelay": 0.75,
     "DisableBotTalkPatching": false
   },
   "SquadTalk": {
-    "_reportReloadingChance": 5.0,
+    "_reportReloadingChance": 1.0,
     "_reportReloadingFreq": 2.2,
-    "_reportLostVisualChance": 10.0,
-    "_reportRatChance": 33.0,
+    "_reportLostVisualChance": 5.0,
+    "_reportRatChance": 5.0,
     "_reportRatTimeSinceSeen": 60.0,
-    "_reportEnemyConversationChance": 10.0,
+    "_reportEnemyConversationChance": 5.0,
     "_reportEnemyMaxDist": 70.0,
-    "_reportEnemyHealthChance": 40.0,
+    "_reportEnemyHealthChance": 5.0,
     "_reportEnemyHealthFreq": 8.0,
     "_reportEnemyKilledChance": 60.0,
     "_reportEnemyKilledSquadLeadChance": 60.0,
     "_reportEnemyKilledToxicSquadLeader": false,
     "_friendCloseDist": 40.0,
-    "_reportFriendKilledChance": 60.0,
-    "_talkRetreatChance": 60.0,
+    "_reportFriendKilledChance": 1.0,
+    "_talkRetreatChance": 1.0,
     "_talkRetreatFreq": 10.0,
     "_talkRetreatTrigger": "CoverMe",
     "_talkRetreatMask": "Combat",
     "_talkRetreatGroupDelay": true,
-    "_underFireNeedHelpChance": 45.0,
+    "_underFireNeedHelpChance": 1.0,
     "_underFireNeedHelpTrigger": "NeedHelp",
     "_underFireNeedHelpMask": "Combat",
     "_underFireNeedHelpGroupDelay": true,
     "_underFireNeedHelpFreq": 1.0,
-    "_enemyNeedHelpChance": 40.0,
-    "_hearNoiseChance": 50.0,
+    "_enemyNeedHelpChance": 1.0,
+    "_hearNoiseChance": 1.0,
     "_hearNoiseMaxDist": 70.0,
     "_hearNoiseFreq": 30.0,
-    "_enemyLocationTalkChance": 70.0,
+    "_enemyLocationTalkChance": 5.0,
     "_enemyLocationTalkTimeSinceSeen": 3.0,
     "_enemyLocationTalkFreq": 1.0,
     "_enemyLocationBehindAngle": 90.0,

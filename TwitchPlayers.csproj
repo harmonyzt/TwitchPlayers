@@ -25,7 +25,7 @@
 
     <ItemGroup>
       <Reference Include="SAINServerMod">
-        <HintPath>..\..\..\Games\SPT400\SPT\user\mods\Solarint-SAIN-ServerMod\SAINServerMod.dll</HintPath>
+        <HintPath>..\..\SPT\user\mods\Solarint-SAIN-ServerMod\SAINServerMod.dll</HintPath>
       </Reference>
     </ItemGroup>
 
