@@ -330,9 +330,9 @@
         "CanGrenade": true
       },
       "Aiming": {
-        "AimCenterMass": true,
+        "AimCenterMass": false,
         "AimForHead": false,
-        "AimForHeadChance": 33.0,
+        "AimForHeadChance": 3.0,
         "DistanceAimTimeMultiplier": 1.0,
         "AngleAimTimeMultiplier": 1.0,
         "FasterCQBReactions": true,

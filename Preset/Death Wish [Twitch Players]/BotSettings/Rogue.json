@@ -331,7 +331,7 @@
       },
       "Aiming": {
         "AimCenterMass": false,
-        "AimForHead": true,
+        "AimForHead": false,
         "AimForHeadChance": 2.0,
         "DistanceAimTimeMultiplier": 1.0,
         "AngleAimTimeMultiplier": 1.0,
