@@ -141,7 +141,7 @@
       "DAMAGE_MIN_MOD": 0.2,
       "DAMAGE_MAX_MOD": 3.0
     },
-    "AimCenterMassGlobal": false,
+    "AimCenterMassGlobal": true,
     "EnemyVelocityMaxBuff": 1.2,
     "EnemyVelocityMaxDebuff": 0.8,
     "EnemySprintingScatterMulti": 0.66,
@@ -159,7 +159,7 @@
     "IronSightFarMulti": 0.7,
     "IronSightScaleDistanceStart": 40.0,
     "IronSightScaleDistanceEnd": 75.0,
-    "CenterMassVal": 0.3,
+    "CenterMassVal": 0.23,
     "MinAimTime": 0.5,
     "FasterCQBReactionsGlobal": true,
     "AimDownSightsAimTimeMultiplier": 0.2
@@ -661,7 +661,7 @@
     "startHeight": 0.25,
     "GeneratePointStackHeight": 4.0,
     "DistanceBetweenPoints": 0.66,
-    "RANDOMSWAY_TOGGLE": true,
+    "RANDOMSWAY_TOGGLE": false,
     "RANDOMSWAY_CIRCLE_RADIUS": 0.02,
     "RANDOMSWAY_LOOP_DURATION": 4.0,
     "RANDOMSWAY_CIRCLE_SCALE": 0.015,
@@ -679,7 +679,7 @@
         "SmoothingMode": "SmoothDamp"
       },
       "Combat": {
-        "SmoothingValue": 0.07,
+        "SmoothingValue": 0.05,
         "MaxTurnSpeed": 300.0,
         "SmoothingMode": "SmoothDamp"
       },
@@ -694,12 +694,12 @@
         "SmoothingMode": "SmoothDamp"
       },
       "Aiming": {
-        "SmoothingValue": 0.1,
+        "SmoothingValue": 0.05,
         "MaxTurnSpeed": 360.0,
         "SmoothingMode": "SmoothDamp"
       }
     },
-    "ConvergenceBoost": 1.1,
+    "ConvergenceBoost": 1.3,
     "PathVisionMinCommandsPerJob": 256.0
   },
   "Shoot": {

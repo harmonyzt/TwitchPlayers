@@ -10,7 +10,7 @@
     "PowerLevelScaleStart": 250.0,
     "PowerLevelScaleEnd": 500.0,
     "InverseScale": false,
-    "PowerLevelMin": 250.0,
+    "PowerLevelMin": 995.0,
     "PowerLevelMax": 1000.0,
     "MaxChanceIfMeetRequirements": 0.0,
     "AllowedTypes": [
@@ -97,7 +97,7 @@
     "Rush": {
       "CanRushEnemyReloadHeal": true,
       "CanJumpCorners": true,
-      "JumpCornerChance": 80.0,
+      "JumpCornerChance": 100.0,
       "CanBunnyHop": true,
       "BunnyHopChance": 40.0
     },

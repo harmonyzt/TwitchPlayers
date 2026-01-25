@@ -115,10 +115,10 @@
       "ConstantTaunt": false,
       "CanRespondToEnemyVoice": false,
       "TauntFrequency": 10.0,
-      "TauntChance": 50.0,
-      "TauntMaxDistance": 50.0,
-      "CanFakeDeathRare": false,
-      "FakeDeathChance": 2.0,
+      "TauntChance": 1.0,
+      "TauntMaxDistance": 11.37,
+      "CanFakeDeathRare": true,
+      "FakeDeathChance": 5.0,
       "CanBegForLife": false
     }
   },
@@ -129,6 +129,6 @@
     "HearingDistanceCoef": 0.65,
     "AggressionCoef": 0.6,
     "PRECISION_SPEED_COEF": 0.55,
-    "ACCURACY_SPEED_COEF": 1.3
+    "ACCURACY_SPEED_COEF": 1.55
   }
 }

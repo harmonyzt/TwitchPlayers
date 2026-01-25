@@ -10,7 +10,7 @@
     "PowerLevelScaleStart": 150.0,
     "PowerLevelScaleEnd": 500.0,
     "InverseScale": false,
-    "PowerLevelMin": 150.0,
+    "PowerLevelMin": 995.0,
     "PowerLevelMax": 1000.0,
     "MaxChanceIfMeetRequirements": 0.0,
     "AllowedTypes": [
@@ -46,7 +46,7 @@
       "WillSearchForEnemy": true,
       "WillSearchFromAudio": true,
       "HeardFromPeaceBehavior": "Freeze",
-      "WillChaseDistantGunshots": false,
+      "WillChaseDistantGunshots": true,
       "AudioStraightDistanceToIgnore": 100.0,
       "SearchBaseTime": 90.0,
       "SearchWaitMultiplier": 3.0,

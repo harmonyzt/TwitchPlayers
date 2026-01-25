@@ -26,7 +26,7 @@
       "DOGFIGHT_TIMESINCESEEN_START": 1.0,
       "DOGFIGHT_PATH_DIST_END": 15.0,
       "DOGFIGHT_TIMESINCESEEN_END": 8.0,
-      "HoldGroundBaseTime": 1.25,
+      "HoldGroundBaseTime": 1.2,
       "HoldGroundMinRandom": 0.65,
       "HoldGroundMaxRandom": 1.5,
       "SuppressionResistance": 0.0,
