@@ -694,12 +694,12 @@
         "SmoothingMode": "SmoothDamp"
       },
       "Aiming": {
-        "SmoothingValue": 0.05,
+        "SmoothingValue": 0.08,
         "MaxTurnSpeed": 360.0,
         "SmoothingMode": "SmoothDamp"
       }
     },
-    "ConvergenceBoost": 1.3,
+    "ConvergenceBoost": 1.4,
     "PathVisionMinCommandsPerJob": 256.0
   },
   "Shoot": {
