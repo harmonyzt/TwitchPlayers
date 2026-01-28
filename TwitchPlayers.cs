@@ -16,7 +16,7 @@ public record ModMetadata : AbstractModMetadata
     public override string Name { get; init; } = "Twitch Players";
     public override string Author { get; init; } = "harmony";
     public override List<string>? Contributors { get; init; }
-    public override SemanticVersioning.Version Version { get; init; } = new("3.0.8-rc1");
+    public override SemanticVersioning.Version Version { get; init; } = new("3.0.8");
     public override SemanticVersioning.Range SptVersion { get; init; } = new("~4.0.0");
     public override List<string>? Incompatibilities { get; init; }
     public override Dictionary<string, SemanticVersioning.Range>? ModDependencies { get; init; }
@@ -37,10 +37,18 @@ public class InitTwitchPlayers(ISptLogger<InitTwitchPlayers> logger, JsonUtil js
         var modPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
         var pathToModsFolder = Directory.GetParent(modPath)?.FullName;
         var botCallsignsPath = Path.Combine(pathToModsFolder, "BotCallsigns");
+        var flagPath = Path.Combine(modPath, "Temp", "mod.ready");
         
-        if (Directory.Exists(modPath))
+        HandleFlagFound(modPath, botCallsignsPath);
+        CleanupFlag(flagPath);
+    }
+    
+    private static void CleanupFlag(string flagPath)
+    {
+        if (File.Exists(flagPath))
         {
-            HandleFlagFound(modPath, botCallsignsPath);
+            File.Delete(flagPath);
+            //logger.Info("[Twitch Players] Cleaned up flag file.");
         }
     }
 
@@ -61,6 +69,8 @@ public class InitTwitchPlayers(ISptLogger<InitTwitchPlayers> logger, JsonUtil js
                 logger.Warning("[Twitch Players] All names from Bot Callsigns were not found. Try restarting SPT Server for changes to apply.");
                 return;
             }
+            
+            logger.Info("[Twitch Players] BotCallsigns is ready, processing names...");
             
             // If allNames.json exists, process it
             var botNameData = await jsonUtils.DeserializeFromFileAsync<BotCallsignsNames>(allNamesPath);
@@ -138,7 +148,6 @@ public class InitTwitchPlayers(ISptLogger<InitTwitchPlayers> logger, JsonUtil js
             }
 
             // Assign personalities inside NicknamePersonalities.json
-            // TODO: Fix
             sainConfigService.NicknamesModel.NicknamePersonalities = ttvData.GeneratedTwitchNames;
             
             logger.Info(
