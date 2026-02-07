@@ -123,12 +123,12 @@
     }
   },
   "Difficulty": {
-    "VisibleDistCoef": 0.6,
-    "GainSightCoef": 0.6,
-    "ScatteringCoef": 1.35,
+    "VisibleDistCoef": 0.7,
+    "GainSightCoef": 0.7,
+    "ScatteringCoef": 0.6,
     "HearingDistanceCoef": 0.65,
     "AggressionCoef": 0.6,
     "PRECISION_SPEED_COEF": 0.55,
-    "ACCURACY_SPEED_COEF": 1.55
+    "ACCURACY_SPEED_COEF": 0.7
   }
 }

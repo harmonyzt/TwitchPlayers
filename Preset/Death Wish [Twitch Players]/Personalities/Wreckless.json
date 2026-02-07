@@ -99,7 +99,7 @@
       "CanJumpCorners": true,
       "JumpCornerChance": 100.0,
       "CanBunnyHop": true,
-      "BunnyHopChance": 40.0
+      "BunnyHopChance": 50.0
     },
     "Cover": {
       "CanShiftCoverPosition": true,
@@ -128,7 +128,7 @@
     "ScatteringCoef": 0.1,
     "HearingDistanceCoef": 1.15,
     "AggressionCoef": 1.15,
-    "PRECISION_SPEED_COEF": 5.0,
+    "PRECISION_SPEED_COEF": 3.0,
     "ACCURACY_SPEED_COEF": 0.1
   }
 }

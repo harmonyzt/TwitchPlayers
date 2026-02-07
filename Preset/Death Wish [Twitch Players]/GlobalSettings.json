@@ -2,7 +2,7 @@
   "Difficulty": {
     "VisibleDistCoef": 2.0,
     "GainSightCoef": 1.0,
-    "ScatteringCoef": 0.5,
+    "ScatteringCoef": 1.0,
     "HearingDistanceCoef": 1.0,
     "AggressionCoef": 1.0,
     "PRECISION_SPEED_COEF": 1.0,
@@ -429,10 +429,10 @@
       },
       "Labyrinth": {
         "VisibleDistCoef": 1.0,
-        "GainSightCoef": 1.0,
+        "GainSightCoef": 0.7,
         "ScatteringCoef": 1.0,
-        "HearingDistanceCoef": 1.0,
-        "AggressionCoef": 1.0,
+        "HearingDistanceCoef": 0.3,
+        "AggressionCoef": 0.6,
         "PRECISION_SPEED_COEF": 1.0,
         "ACCURACY_SPEED_COEF": 1.0
       }
