@@ -19,7 +19,7 @@ public sealed class TwitchPlayersMetadata : IModMetadata
     public Range SptVersion { get; init; } = new("~4.1.3");
     public string Author { get; init; } = "harmony";
     public List<string>? Contributors { get; init; }
-    public Version Version { get; init; } = new("2.0.5");
+    public Version Version { get; init; } = new("3.0.9");
     public bool HasPrepatcher { get; init; }
     public List<string>? Incompatibilities { get; init; }
     public Dictionary<string, SemanticVersioning.Range>? ModDependencies { get; init; }
