@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
-        <TargetFramework>net9.0</TargetFramework>
+        <TargetFramework>net10.0</TargetFramework>
         <RootNamespace>TwitchPlayers</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
@@ -14,9 +14,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="SPTarkov.Common" Version="4.0.1" />
-        <PackageReference Include="SPTarkov.DI" Version="4.0.1" />
-        <PackageReference Include="SPTarkov.Server.Core" Version="4.0.1" />
+        <PackageReference Include="SPTarkov.Common" Version="4.1.0" />
+        <PackageReference Include="SPTarkov.DI" Version="4.1.0" />
+        <PackageReference Include="SPTarkov.Server.Core" Version="4.1.0" />
     </ItemGroup>
 
     <ItemGroup>
@@ -24,8 +24,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Reference Include="SAINServerMod">
-        <HintPath>..\..\SPT\user\mods\Solarint-SAIN-ServerMod\SAINServerMod.dll</HintPath>
+      <Reference Include="SAIN">
+        <HintPath>..\..\SPT_Runtime\user\mods\Solarint-SAIN-ServerMod\SAINServerMod.dll</HintPath>
+      </Reference>
+      <Reference Include="SAIN.Preset.Shared">
+        <HintPath>..\..\SPT_Runtime\user\mods\Solarint-SAIN-ServerMod\SAIN.Preset.Shared.dll</HintPath>
       </Reference>
     </ItemGroup>
 
