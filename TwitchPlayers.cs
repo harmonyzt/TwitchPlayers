@@ -16,10 +16,10 @@ public sealed class TwitchPlayersMetadata : IModMetadata
 {
     public string ModGuid { get; init; } = "com.harmonyzt.twitchplayers";
     public string Name { get; init; } = "Twitch Players";
-    public Range SptVersion { get; init; } = new("~4.1.3");
+    public Range SptVersion { get; init; } = new("~4.1");
     public string Author { get; init; } = "harmony";
     public List<string>? Contributors { get; init; }
-    public Version Version { get; init; } = new("3.0.9");
+    public Version Version { get; init; } = new("3.1.0");
     public bool HasPrepatcher { get; init; }
     public List<string>? Incompatibilities { get; init; }
     public Dictionary<string, SemanticVersioning.Range>? ModDependencies { get; init; }
